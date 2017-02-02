@@ -34,12 +34,12 @@ public  BufferedImage image=null  , smallimage= null , largeimage=null , result 
                 
                 
                 largeimage.setRGB
-        (i, j+smallimage.getWidth(), change(new Color(smallimage.getRGB(i, j)) 
-                , (new Color(largeimage.getRGB(i, j+smallimage.getWidth()))) , 1));
+        (i, j+smallimage.getHeight(), change(new Color(smallimage.getRGB(i, j)) 
+                , (new Color(largeimage.getRGB(i, j+smallimage.getHeight()))) , 1));
                 
                 
-                largeimage.setRGB(i, j+smallimage.getWidth()+smallimage.getWidth(), change(new Color(smallimage.getRGB(i, j)) 
-                ,(new Color(largeimage.getRGB(i, j+smallimage.getWidth()+smallimage.getWidth()))) , 2)); // wtf is j over here ????
+                largeimage.setRGB(i, j+smallimage.getHeight()+smallimage.getHeight(), change(new Color(smallimage.getRGB(i, j)) 
+                ,(new Color(largeimage.getRGB(i, j+smallimage.getHeight()+smallimage.getHeight()))) , 2)); // wtf is j over here ????
             }
         }
         
@@ -121,14 +121,14 @@ public  BufferedImage image=null  , smallimage= null , largeimage=null , result 
        blue = c.getBlue() & 7; 
        
       
-        c = new Color(largeimage.getRGB(rows, cols+smallimage.getWidth()));
+        c = new Color(largeimage.getRGB(rows, cols+smallimage.getHeight()));
        
        
        
        red=red | ((c.getRed()  & 7)<<3); 
        green |= ((c.getGreen()  & 7)<<3) ; 
        blue |= ((c.getBlue()  & 7)<<3) ;
-        c = new Color(largeimage.getRGB(rows, cols+smallimage.getWidth()*2));
+        c = new Color(largeimage.getRGB(rows, cols+smallimage.getHeight()*2));
        
        
        
@@ -152,9 +152,9 @@ public  BufferedImage image=null  , smallimage= null , largeimage=null , result 
     
     public static void main(String[] args) throws IOException {
         JavaApplication1 ja = new JavaApplication1();  // an object from the class we called it ja.
-        File small = new File ("/home/taher/Desktop/test3.jpg"); // file of the small image
+        File small = new File ("/home/taher/Desktop/mohab_small.jpg"); // file of the small image
         ja.smallimage = ImageIO.read(small);  // reading the small image to be hided
-        File big = new File ("/home/taher/Desktop/123.png"); // file of the big image
+        File big = new File ("/home/taher/Desktop/huge.jpg"); // file of the big image
         BufferedImage testo = ImageIO.read(big); // reading the image that will act as a storage image for our secret small image
         ja.largeimage = ImageIO.read(big); 
        
