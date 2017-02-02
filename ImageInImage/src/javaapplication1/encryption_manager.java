@@ -151,11 +151,11 @@ public BufferedImage result = null; // image to be used in encyrption/decryption
     
     
     
-    public static void main(String[] args) throws IOException {
+  /*  public static void main(String[] args) throws IOException {
         encryption_manager ja = new encryption_manager();  // an object from the class we called it ja.
          // file of the small image
        // reading the small image to be hided
-        ja.smallimage= new ImageClass("/home/taher/Desktop/mohab_small.jpg");
+        ja.smallimage= new ImageClass("/home/taher/Desktop/download.jpg");
         File big = new File ("/home/taher/Desktop/huge.jpg"); // file of the big image
         BufferedImage testo = ImageIO.read(big); // reading the image that will act as a storage image for our secret small image
         ja.largeimage = new ImageClass("/home/taher/Desktop/huge.jpg");
@@ -182,7 +182,7 @@ public BufferedImage result = null; // image to be used in encyrption/decryption
        
          
      
-    }
+    }*/
     
 }
  

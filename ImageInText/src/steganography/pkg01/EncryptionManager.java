@@ -5,18 +5,10 @@
  */
 package steganography.pkg01;
 
-import static com.sun.javafx.iio.ImageStorage.ImageType.RGB;
-import static com.sun.javafx.iio.ios.IosImageLoader.RGB;
-import java.io.IOException;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.WritableRaster;
-import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
 
 /**
  *
