@@ -16,33 +16,34 @@ import javax.imageio.ImageIO;
  *
  * @author taher
  */
-public class JavaApplication1 {
-public  BufferedImage image=null  , smallimage= null , largeimage=null , result = null; // image to be used in encyrption/decryption.
-      
-  
+
+public class encryption_manager {
+public  ImageClass image=null  , smallimage= null , largeimage=null ;
+public BufferedImage result = null; // image to be used in encyrption/decryption.
+
     public void imageinimage()    // this function inserts an image inside a bigger image ..the ja.smallimage into ja.largeimage
             // the large image bits are changed in 3 places ..for example if we have a small image with RGB at pixel x , y.
             // the function takes the R and inserts it into pixels of x , y ...x + x , y + y , .. x+ 2*x , y+ 2*y..thus it stores the 8 bits of R in three
             // R bit-pixels in the larger image.
     { 
-        for (int i=0; i<smallimage.getWidth(); i++ )
+        for (int i=0; i<smallimage.width; i++ )
         {
-            for (int j=0; j<smallimage.getHeight(); j++)
+            for (int j=0; j<smallimage.height ; j++)
             {
-                largeimage.setRGB
-        (i, j, change(new Color(smallimage.getRGB(i, j)) , (new Color(largeimage.getRGB(i, j))) , 0));
+                largeimage.image.setRGB
+        (i, j, change(new Color(smallimage.image.getRGB(i, j)) , (new Color(largeimage.image.getRGB(i, j))) , 0));
                 
                 
-                largeimage.setRGB
-        (i, j+smallimage.getHeight(), change(new Color(smallimage.getRGB(i, j)) 
-                , (new Color(largeimage.getRGB(i, j+smallimage.getHeight()))) , 1));
+                largeimage.image.setRGB
+        (i, j+smallimage.height, change(new Color(smallimage.image.getRGB(i, j)) 
+                , (new Color(largeimage.image.getRGB(i, j+smallimage.height))) , 1));
                 
                 
-                largeimage.setRGB(i, j+smallimage.getHeight()+smallimage.getHeight(), change(new Color(smallimage.getRGB(i, j)) 
-                ,(new Color(largeimage.getRGB(i, j+smallimage.getHeight()+smallimage.getHeight()))) , 2)); // wtf is j over here ????
+                largeimage.image.setRGB(i, j+smallimage.height+smallimage.height, change(new Color(smallimage.image.getRGB(i, j)) 
+                ,(new Color(largeimage.image.getRGB(i, j+smallimage.height+smallimage.height))) , 2)); // wtf is j over here ????
             }
         }
-        
+        largeimage.set_encrypt();
         
     }
    
@@ -107,13 +108,13 @@ public  BufferedImage image=null  , smallimage= null , largeimage=null , result 
         BufferedImage answer; 
         int red,blue,green;
         
-        answer = new BufferedImage(smallimage.getWidth(),smallimage.getHeight(), smallimage.TYPE_INT_RGB);
+        answer = new BufferedImage(smallimage.width,smallimage.height, smallimage.image.TYPE_INT_RGB);
         
-        result  = new BufferedImage(smallimage.getWidth(),smallimage.getHeight(), smallimage.TYPE_INT_RGB);
+        result  = new BufferedImage(smallimage.width,smallimage.height, smallimage.image.TYPE_INT_RGB);
        
-        for (int rows =0; rows < smallimage.getWidth(); rows++){
-   for (int cols =0; cols <smallimage.getHeight(); cols ++){
-       Color c = new Color(largeimage.getRGB(rows, cols));
+        for (int rows =0; rows < smallimage.width; rows++){
+   for (int cols =0; cols <smallimage.height; cols ++){
+       Color c = new Color(largeimage.image.getRGB(rows, cols));
        
        
        red = (c.getRed() & 7 ) ;
@@ -121,14 +122,14 @@ public  BufferedImage image=null  , smallimage= null , largeimage=null , result 
        blue = c.getBlue() & 7; 
        
       
-        c = new Color(largeimage.getRGB(rows, cols+smallimage.getHeight()));
+        c = new Color(largeimage.image.getRGB(rows, cols+smallimage.height));
        
        
        
        red=red | ((c.getRed()  & 7)<<3); 
        green |= ((c.getGreen()  & 7)<<3) ; 
        blue |= ((c.getBlue()  & 7)<<3) ;
-        c = new Color(largeimage.getRGB(rows, cols+smallimage.getHeight()*2));
+        c = new Color(largeimage.image.getRGB(rows, cols+smallimage.height*2));
        
        
        
@@ -151,12 +152,13 @@ public  BufferedImage image=null  , smallimage= null , largeimage=null , result 
     
     
     public static void main(String[] args) throws IOException {
-        JavaApplication1 ja = new JavaApplication1();  // an object from the class we called it ja.
-        File small = new File ("/home/taher/Desktop/mohab_small.jpg"); // file of the small image
-        ja.smallimage = ImageIO.read(small);  // reading the small image to be hided
+        encryption_manager ja = new encryption_manager();  // an object from the class we called it ja.
+         // file of the small image
+       // reading the small image to be hided
+        ja.smallimage= new ImageClass("/home/taher/Desktop/mohab_small.jpg");
         File big = new File ("/home/taher/Desktop/huge.jpg"); // file of the big image
         BufferedImage testo = ImageIO.read(big); // reading the image that will act as a storage image for our secret small image
-        ja.largeimage = ImageIO.read(big); 
+        ja.largeimage = new ImageClass("/home/taher/Desktop/huge.jpg");
        
       
         ja.imageinimage(); // stores the small image in the large one
@@ -171,7 +173,7 @@ public  BufferedImage image=null  , smallimage= null , largeimage=null , result 
           
          
          ImageIO.write(answer, "jpg", out);
-         ImageIO.write(ja.largeimage, "jpg", ou2t);
+         ImageIO.write(ja.largeimage.image, "jpg", ou2t);
          System.out.println();
         
     
