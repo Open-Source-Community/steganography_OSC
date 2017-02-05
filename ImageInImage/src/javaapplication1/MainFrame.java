@@ -26,7 +26,10 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
+    public encryption_manager encryptor ;
+    public BufferedImage test = null;
     public MainFrame() {
+        encryptor = new encryption_manager();
         initComponents();
     }
 
@@ -48,6 +51,8 @@ public class MainFrame extends javax.swing.JFrame {
         SmallImageLabel = new javax.swing.JLabel();
         LargeImageLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        encryptedimage = new javax.swing.JLabel();
+        test01 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,8 +76,18 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         EncryptButton.setText("Encrypt");
+        EncryptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EncryptButtonActionPerformed(evt);
+            }
+        });
 
         DecryptButton.setText("Decrypt");
+        DecryptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DecryptButtonActionPerformed(evt);
+            }
+        });
 
         SmallImageLabel.setText("SmallImage");
 
@@ -89,6 +104,15 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        encryptedimage.setText("Encryption image");
+
+        test01.setText("Test to desktop ");
+        test01.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                test01ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,62 +121,76 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(LargeImagePath, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
-                            .addComponent(SmallImagePath))
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(SmallImageButton)
-                            .addComponent(LargeImageButton)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(LargeImagePath, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                                    .addComponent(SmallImagePath))
+                                .addGap(33, 33, 33)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(SmallImageButton)
+                                    .addComponent(LargeImageButton)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(146, 146, 146)
+                                        .addComponent(EncryptButton)
+                                        .addGap(147, 147, 147)
+                                        .addComponent(DecryptButton))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(SmallImageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(LargeImageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(320, 320, 320)
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(37, 37, 37)
+                                        .addComponent(encryptedimage, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(226, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addComponent(SmallImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(290, 290, 290))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(EncryptButton)
-                                .addGap(116, 116, 116)
-                                .addComponent(DecryptButton)
-                                .addGap(260, 260, 260)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 16, Short.MAX_VALUE))
-                            .addComponent(LargeImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))))
-                .addContainerGap(398, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(test01)
+                        .addGap(278, 278, 278))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SmallImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SmallImageButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LargeImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LargeImageButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(SmallImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SmallImageButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LargeImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LargeImageButton))
-                        .addGap(72, 72, 72)
-                        .addComponent(SmallImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(LargeImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(SmallImageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(LargeImageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(encryptedimage, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(EncryptButton)
                             .addComponent(DecryptButton))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 345, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(317, 317, 317))))
+                        .addGap(56, 56, 56)
+                        .addComponent(test01)
+                        .addGap(231, 231, 231))))
         );
+
+        encryptedimage.getAccessibleContext().setAccessibleName("imageEn");
+        encryptedimage.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -167,10 +205,10 @@ public class MainFrame extends javax.swing.JFrame {
             File file = chooser.getSelectedFile();
             dummi  = ImageIO.read(file);
             SmallImagePath.setText(file.getAbsolutePath());
-            Image dummi2 =  dummi.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            Image dummi2 =  dummi.getScaledInstance(SmallImageLabel.getWidth(), SmallImageLabel.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon imageIcon = new ImageIcon(dummi2);
             SmallImageLabel.setIcon(imageIcon);
-            
+            encryptor.smallimage = new ImageClass(file.getAbsolutePath()); 
             
             // TODO add your handling code here:
         } catch (IOException ex) {
@@ -190,11 +228,64 @@ public class MainFrame extends javax.swing.JFrame {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
             LargeImagePath.setText(file.getAbsolutePath());
-            Image dummi2 =  dummi.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            Image dummi2 =  dummi.getScaledInstance(LargeImageLabel.getWidth(), LargeImageLabel.getHeight(), Image.SCALE_SMOOTH);
             ImageIcon imageIcon = new ImageIcon(dummi2);
             LargeImageLabel.setIcon(imageIcon);
+        try {
+            encryptor.largeimage = new ImageClass(file.getAbsolutePath());
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
          
     }//GEN-LAST:event_LargeImageButtonActionPerformed
+
+    private void EncryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EncryptButtonActionPerformed
+        // TODO add your handling code here:
+        encryptor.imageinimage();
+        test = encryptor.display(); 
+        
+    }//GEN-LAST:event_EncryptButtonActionPerformed
+
+    private void DecryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DecryptButtonActionPerformed
+        // TODO add your handling code here:
+        Image dummi = test.getScaledInstance(SmallImageLabel.getWidth(), SmallImageLabel.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon im = new ImageIcon(dummi); 
+        encryptedimage.setIcon(im);
+    }//GEN-LAST:event_DecryptButtonActionPerformed
+
+    private void test01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_test01ActionPerformed
+        try {
+           
+            // TODO add your handling code here:
+            encryption_manager ja = new encryption_manager();  // an object from the class we called it ja.
+            // file of the small image
+            // reading the small image to be hided
+            ja.smallimage= new ImageClass("/home/taher/Desktop/test.jpg");
+            File big = new File ("/home/taher/Desktop/huge.jpg"); // file of the big image
+            BufferedImage testo = ImageIO.read(big); // reading the image that will act as a storage image for our secret small image
+            ja.largeimage = new ImageClass("/home/taher/Desktop/huge.jpg");
+            
+            
+            ja.imageinimage(); // stores the small image in the large one
+            BufferedImage answer= null;
+            BufferedImage test = null ;
+            answer= ja.display();
+            
+            
+            
+            File out = new File ("/home/taher/Desktop/secret_image.jpg");
+            File ou2t = new File ("/home/taher/Desktop/big_image.jpg");
+            
+            
+            ImageIO.write(answer, "jpg", out);
+            ImageIO.write(ja.largeimage.image, "jpg", ou2t);
+            System.out.println();
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_test01ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,6 +331,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton SmallImageButton;
     private javax.swing.JLabel SmallImageLabel;
     private javax.swing.JTextField SmallImagePath;
+    private javax.swing.JLabel encryptedimage;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton test01;
     // End of variables declaration//GEN-END:variables
 }

@@ -151,7 +151,7 @@ public BufferedImage result = null; // image to be used in encyrption/decryption
     
     
     
-  /*  public static void main(String[] args) throws IOException {
+  /*public static void main(String[] args) throws IOException {
         encryption_manager ja = new encryption_manager();  // an object from the class we called it ja.
          // file of the small image
        // reading the small image to be hided
