@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -243,12 +244,28 @@ public class MainFrame extends javax.swing.JFrame {
     private void EncryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EncryptButtonActionPerformed
         // TODO add your handling code here:
         encryptor.imageinimage();
+        if (encryptor.work == false)
+        {
+            
+            JOptionPane.showMessageDialog(null, "The large image should be bigger by atleast 3 times."
+                    + "", "Error! " , JOptionPane.INFORMATION_MESSAGE);   
+            return ; 
+        }
+        
+       
         test = encryptor.display(); 
+         JOptionPane.showMessageDialog(null, "Encryption successful, press Decrypt to extract the secret image."
+                    + "", "Done" , JOptionPane.INFORMATION_MESSAGE);   
         
     }//GEN-LAST:event_EncryptButtonActionPerformed
 
     private void DecryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DecryptButtonActionPerformed
         // TODO add your handling code here:
+          if (encryptor.work == false)
+        {
+            JOptionPane.showMessageDialog(null, "The large image should be bigger by atleast 3 times.", "Error! " , JOptionPane.INFORMATION_MESSAGE); 
+            return; 
+        }
         Image dummi = test.getScaledInstance(SmallImageLabel.getWidth(), SmallImageLabel.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon im = new ImageIcon(dummi); 
         encryptedimage.setIcon(im);

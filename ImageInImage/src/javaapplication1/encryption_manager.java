@@ -19,13 +19,21 @@ import javax.imageio.ImageIO;
 
 public class encryption_manager {
 public  ImageClass image=null  , smallimage= null , largeimage=null ;
+public boolean work=true; 
 public BufferedImage result = null; // image to be used in encyrption/decryption.
 
     public void imageinimage()    // this function inserts an image inside a bigger image ..the ja.smallimage into ja.largeimage
             // the large image bits are changed in 3 places ..for example if we have a small image with RGB at pixel x , y.
             // the function takes the R and inserts it into pixels of x , y ...x + x , y + y , .. x+ 2*x , y+ 2*y..thus it stores the 8 bits of R in three
-            // R bit-pixels in the larger image.
+            // R bit-pixels in the larger image.    
     { 
+        if(smallimage.image.getHeight()*3 > largeimage.image.getHeight())
+        {
+            work = false ;
+        return ; 
+        }
+        
+        
         for (int i=0; i<smallimage.width; i++ )
         {
             for (int j=0; j<smallimage.height ; j++)
@@ -44,7 +52,7 @@ public BufferedImage result = null; // image to be used in encyrption/decryption
             }
         }
         largeimage.set_encrypt();
-        
+        work = true; 
     }
    
    public int change (Color small , Color big   , int pick  ) //this is the core function that changes the bits of the large
